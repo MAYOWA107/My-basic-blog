@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <section class="card">
+        <h2>Edit post</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div>
+                {{ form.body.label_tag }}
+                {{ form.body }}
+                {% if form.body.errors %}
+                    <div class="field-error">{{ form.body.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            <div style="margin-top:12px;">
+                <button class="button button-primary" type="submit">Save changes</button>
+                <a class="button button-secondary" href="{% url 'index' %}">Cancel</a>
+            </div>
+        </form>
+    </section>
+{% endblock %}

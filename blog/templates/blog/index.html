@@ -1,0 +1,42 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <section class="card">
+        <h2>New post</h2>
+        <form method="post" novalidate>
+            {% csrf_token %}
+            <div>
+                {{ form.body.label_tag }}
+                {{ form.body }}
+                {% if form.body.errors %}
+                    <div class="field-error">{{ form.body.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            <div style="margin-top:12px;">
+                <button class="button button-primary" type="submit">Save post</button>
+            </div>
+        </form>
+    </section>
+
+    <section>
+        <h2>Existing posts</h2>
+        {% if posts %}
+            {% for post in posts %}
+                <article class="card">
+                    <p>{{ post.body|linebreaksbr }}</p>
+                    <div class="post-meta">Posted on {{ post.created_at|date:'M d, Y H:i' }}</div>
+                    {% if post.owner_id == owner_id %}
+                        <div class="post-actions">
+                            <a class="button button-secondary" href="{% url 'edit_post' post.id %}">Edit</a>
+                            <a class="button button-danger" href="{% url 'delete_post' post.id %}">Delete</a>
+                        </div>
+                    {% endif %}
+                </article>
+            {% endfor %}
+        {% else %}
+            <div class="card">
+                <p>No posts yet. Share the first thought.</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

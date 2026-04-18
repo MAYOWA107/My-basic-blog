@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Blog</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f8f9fb; color: #111; }
+        .container { max-width: 760px; margin: 0 auto; padding: 24px; }
+        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+        .button { display: inline-block; padding: 10px 16px; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; color: white; }
+        .button-primary { background: #2f6ce5; }
+        .button-danger { background: #d64545; }
+        .button-secondary { background: #6c757d; }
+        .message { padding: 14px 16px; border-radius: 8px; margin-bottom: 20px; }
+        .message-success { background: #e6f4ea; color: #1f6f3e; border: 1px solid #b7e0c4; }
+        .message-error { background: #fdecea; color: #a1201d; border: 1px solid #f0b6b8; }
+        label { font-weight: bold; display: block; margin-bottom: 6px; }
+        textarea { width: 100%; font-size: 1rem; padding: 10px; border: 1px solid #ccc; border-radius: 6px; }
+        .field-error { color: #a1201d; margin-top: 6px; }
+        .post-meta { color: #666; font-size: 0.9rem; margin-top: 8px; }
+        .post-actions { margin-top: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="card">
+            <h1>Basic Blog</h1>
+            <p>Post a thought, read entries, and remove your own content.</p>
+        </header>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message {% if message.tags %}message-{{ message.tags }}{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
